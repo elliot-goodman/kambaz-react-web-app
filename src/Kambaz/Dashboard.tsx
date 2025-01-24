@@ -28,7 +28,7 @@ export default function Dashboard() {
             to="/Kambaz/Courses/3000/Home"
             className="wd-dashboard-course-link"
           >
-            <img src="/images/reactjs.jpg" width={200} />{" "}
+            <img src="/images/algorithm.jpg" width={200} />{" "}
             {/* Dashboard Title */}
             <div>
               {" "}
@@ -46,7 +46,7 @@ export default function Dashboard() {
             to="/Kambaz/Courses/2341/Home"
             className="wd-dashboard-course-link"
           >
-            <img src="/images/reactjs.jpg" width={200} />{" "}
+            <img src="/images/computer.jpg" width={200} />{" "}
             {/* Dashboard Title */}
             <div>
               {" "}
@@ -64,8 +64,7 @@ export default function Dashboard() {
             to="/Kambaz/Courses/4375/Home"
             className="wd-dashboard-course-link"
           >
-            <img src="/images/reactjs.jpg" width={200} />{" "}
-            {/* Dashboard Title */}
+            <img src="/images/sports.jpg" width={200} /> {/* Dashboard Title */}
             <div>
               {" "}
               {/* Published Courses */}
@@ -80,8 +79,7 @@ export default function Dashboard() {
             to="/Kambaz/Courses/1000/Home"
             className="wd-dashboard-course-link"
           >
-            <img src="/images/reactjs.jpg" width={200} />{" "}
-            {/* Dashboard Title */}
+            <img src="/images/101.jpg" width={200} /> {/* Dashboard Title */}
             <div>
               {" "}
               {/* Published Courses */}
@@ -96,7 +94,7 @@ export default function Dashboard() {
             to="/Kambaz/Courses/2000/Home"
             className="wd-dashboard-course-link"
           >
-            <img src="/images/reactjs.jpg" width={200} />{" "}
+            <img src="/images/develop.jpg" width={200} />{" "}
             {/* Dashboard Title */}
             <div>
               {" "}
@@ -112,7 +110,7 @@ export default function Dashboard() {
             to="/Kambaz/Courses/1800/Home"
             className="wd-dashboard-course-link"
           >
-            <img src="/images/reactjs.jpg" width={200} />{" "}
+            <img src="/images/ancient.jpg" width={200} />{" "}
             {/* Dashboard Title */}
             <div>
               {" "}
