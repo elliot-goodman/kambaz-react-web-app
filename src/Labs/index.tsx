@@ -4,6 +4,8 @@ import Lab3 from "./Lab3";
 import { Navigate, Route, Routes } from "react-router";
 import TOC from "./TOC";
 
+// Elliot Goodman
+
 export default function Labs() {
   return (
     <div>
