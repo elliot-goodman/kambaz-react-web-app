@@ -18,8 +18,8 @@ export default function PeopleTable() {
           <tr>
             <td className="wd-full-name text-nowrap">
               <FaUserCircle className="me-2 fs-1 text-secondary" />
-              <span className="wd-first-name">Tony</span>{" "}
-              <span className="wd-last-name">Stark</span>
+              <span className="wd-first-name">Lily Azura</span>{" "}
+              <span className="wd-last-name">Roseli</span>
             </td>
             <td className="wd-login-id">001234561S</td>
             <td className="wd-section">S101</td>
@@ -30,8 +30,8 @@ export default function PeopleTable() {
           <tr>
             <td className="wd-full-name text-nowrap">
               <FaUserCircle className="me-2 fs-1 text-secondary" />
-              <span className="wd-first-name">Bruce</span>{" "}
-              <span className="wd-last-name">Wayne</span>
+              <span className="wd-first-name">Ryan</span>{" "}
+              <span className="wd-last-name">Toh</span>
             </td>
             <td className="wd-login-id">001234572S</td>
             <td className="wd-section">S101</td>
@@ -42,8 +42,8 @@ export default function PeopleTable() {
           <tr>
             <td className="wd-full-name text-nowrap">
               <FaUserCircle className="me-2 fs-1 text-secondary" />
-              <span className="wd-first-name">Steve</span>{" "}
-              <span className="wd-last-name">Rogers</span>
+              <span className="wd-first-name">Maddy</span>{" "}
+              <span className="wd-last-name">Santoso</span>
             </td>
             <td className="wd-login-id">001234598S</td>
             <td className="wd-section">S101</td>
@@ -54,8 +54,8 @@ export default function PeopleTable() {
           <tr>
             <td className="wd-full-name text-nowrap">
               <FaUserCircle className="me-2 fs-1 text-secondary" />
-              <span className="wd-first-name">Natasha</span>{" "}
-              <span className="wd-last-name">Romanoff</span>
+              <span className="wd-first-name">Elliot</span>{" "}
+              <span className="wd-last-name">Goodman</span>
             </td>
             <td className="wd-login-id">001234588S</td>
             <td className="wd-section">S101</td>
