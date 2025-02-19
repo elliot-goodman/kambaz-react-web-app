@@ -7,13 +7,18 @@ import {
   FormSelect,
   Row,
 } from "react-bootstrap";
+import { assignments } from "../../Database";
+import { useParams } from "react-router-dom";
 
 export default function AssignmentEditor() {
+  const { aid } = useParams();
+  const assignment = assignments.find((assignment) => assignment._id === aid);
+
   return (
     <div id="wd-assignments-editor">
       <div className="wd-margin-top">
         <Form.Group as={Row} className="mb-3" controlId="email1">
-          <FormLabel>Assignment Name</FormLabel>
+          <FormLabel>{assignment && assignment.title}</FormLabel>
           <Col sm={10}>
             <Form.Control />
           </Col>
@@ -23,7 +28,7 @@ export default function AssignmentEditor() {
             <Form.Control
               as="textarea"
               style={{ height: "300px" }}
-              placeholder="The assignment is available online. Submit a link to the landing page of your Web application running on Netlify. The landing page should include the following: Your full name and section. Links to each of the lab assignments. Link to the Kanbaz application. Links to all relevant source code repositories. The Kanbaz application should include a link to navigate back to the landing page."
+              placeholder={`${assignment && assignment.description}`}
             />
           </Col>
         </Form.Group>
@@ -40,7 +45,11 @@ export default function AssignmentEditor() {
             Points{" "}
           </Form.Label>
           <Col sm={10}>
-            <Form.Control id="wd-points-form" type="number" placeholder="100" />
+            <Form.Control
+              id="wd-points-form"
+              type="number"
+              placeholder={`${assignment && assignment.points}`}
+            />
           </Col>
         </Form.Group>
         <Form.Group as={Row} className="mb-3">
@@ -154,7 +163,11 @@ export default function AssignmentEditor() {
               <FormLabel className="wd-text-bold wd-margin-top-small">
                 Due
               </FormLabel>
-              <FormControl type="datetime-local" id="wd-due-form"></FormControl>
+              <FormControl
+                type="datetime-local"
+                id="wd-due-form"
+                value={`${assignment && assignment.due_date}`}
+              ></FormControl>
               <div className="wd-margin-top-small">
                 <Row>
                   <Col sm={6}>
@@ -164,6 +177,7 @@ export default function AssignmentEditor() {
                     <FormControl
                       type="datetime-local"
                       id="wd-due-form"
+                      value={`${assignment && assignment.start_date}`}
                     ></FormControl>
                   </Col>
                   <Col sm={6}>
