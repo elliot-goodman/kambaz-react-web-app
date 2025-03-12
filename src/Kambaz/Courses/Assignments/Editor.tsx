@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Button,
   Col,
@@ -7,12 +8,39 @@ import {
   FormSelect,
   Row,
 } from "react-bootstrap";
-import { assignments } from "../../Database";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import EditProtection from "../EditProtection";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { addAssignment, updateAssignment } from "./reducer";
 
-export default function AssignmentEditor() {
+export default function AssignmentEditor({ cid }: { cid: any }) {
+  const { assignments } = useSelector((state: any) => state.assignmentsReducer);
+  const dispatch = useDispatch();
   const { aid } = useParams();
-  const assignment = assignments.find((assignment) => assignment._id === aid);
+
+  const [assignment, setAssignment] = useState<any>({
+    _id: `${aid}`,
+    title: "New Assignment",
+    course: `${cid}`,
+    start: "May 6 12:00am",
+    due: "May 13 11:59pm",
+    start_date: "2023-05-06T00:00",
+    due_date: "2023-05-13T23:59",
+    description: "New Description",
+    points: "100",
+  });
+
+  const editing = assignments.some((assignment: any) => assignment._id === aid);
+
+  useEffect(() => {
+    if (editing) {
+      const existingAssignment = assignments.find(
+        (assignment: any) => assignment._id === aid
+      );
+      setAssignment(existingAssignment);
+    }
+  }, [assignments, aid, editing]);
 
   return (
     <div id="wd-assignments-editor">
@@ -20,7 +48,13 @@ export default function AssignmentEditor() {
         <Form.Group as={Row} className="mb-3" controlId="email1">
           <FormLabel>{assignment && assignment.title}</FormLabel>
           <Col sm={10}>
-            <Form.Control />
+            <Form.Control
+              onChange={(e) =>
+                setAssignment({ ...assignment, title: e.target.value })
+              }
+              placeholder={!editing ? assignment.title : undefined}
+              value={editing ? assignment.title : undefined}
+            />
           </Col>
         </Form.Group>
         <Form.Group as={Row} className="mb-3" controlId="textarea2">
@@ -28,7 +62,11 @@ export default function AssignmentEditor() {
             <Form.Control
               as="textarea"
               style={{ height: "300px" }}
-              placeholder={`${assignment && assignment.description}`}
+              placeholder={!editing ? assignment.description : undefined}
+              value={editing ? assignment.description : undefined}
+              onChange={(e) =>
+                setAssignment({ ...assignment, description: e.target.value })
+              }
             />
           </Col>
         </Form.Group>
@@ -48,7 +86,11 @@ export default function AssignmentEditor() {
             <Form.Control
               id="wd-points-form"
               type="number"
-              placeholder={`${assignment && assignment.points}`}
+              placeholder={!editing ? assignment.points : undefined}
+              value={editing ? assignment.points : undefined}
+              onChange={(e) =>
+                setAssignment({ ...assignment, points: e.target.value })
+              }
             />
           </Col>
         </Form.Group>
@@ -167,6 +209,9 @@ export default function AssignmentEditor() {
                 type="datetime-local"
                 id="wd-due-form"
                 value={`${assignment && assignment.due_date}`}
+                onChange={(e) =>
+                  setAssignment({ ...assignment, due_date: e.target.value })
+                }
               ></FormControl>
               <div className="wd-margin-top-small">
                 <Row>
@@ -178,6 +223,12 @@ export default function AssignmentEditor() {
                       type="datetime-local"
                       id="wd-due-form"
                       value={`${assignment && assignment.start_date}`}
+                      onChange={(e) =>
+                        setAssignment({
+                          ...assignment,
+                          start_date: e.target.value,
+                        })
+                      }
                     ></FormControl>
                   </Col>
                   <Col sm={6}>
@@ -185,6 +236,13 @@ export default function AssignmentEditor() {
                     <FormControl
                       type="datetime-local"
                       id="wd-due-form"
+                      value={`${assignment && assignment.due_date}`}
+                      onChange={(e) =>
+                        setAssignment({
+                          ...assignment,
+                          due_date: e.target.value,
+                        })
+                      }
                     ></FormControl>
                   </Col>
                 </Row>
@@ -194,24 +252,39 @@ export default function AssignmentEditor() {
         </Form.Group>
       </div>
       <hr className="wd-margin-editor-inputs wd-margin-top" />
-      <div className="d-flex ms-auto justify-content-end wd-margin-editor-inputs">
-        <Button
-          variant="secondary"
-          size="lg"
-          className="me-1 float-end"
-          id="wd-add-module-btn"
-        >
-          Cancel
-        </Button>
-        <Button
-          variant="danger"
-          size="lg"
-          className="me-1 float-end"
-          id="wd-add-module-btn"
-        >
-          Save
-        </Button>
-      </div>
+      <EditProtection>
+        <div className="d-flex ms-auto justify-content-end wd-margin-editor-inputs">
+          <Link to={`/Kambaz/Courses/${cid}/Assignments`}>
+            <Button
+              variant="secondary"
+              size="lg"
+              className="me-1 float-end"
+              id="wd-add-module-btn"
+            >
+              Cancel
+            </Button>
+          </Link>
+          <Link
+            to={`/Kambaz/Courses/${cid}/Assignments`}
+            onClick={() => {
+              if (editing) {
+                dispatch(updateAssignment(assignment));
+              } else {
+                dispatch(addAssignment(assignment));
+              }
+            }}
+          >
+            <Button
+              variant="danger"
+              size="lg"
+              className="me-1 float-end"
+              id="wd-add-module-btn"
+            >
+              Save
+            </Button>
+          </Link>
+        </div>
+      </EditProtection>
     </div>
   );
 }
