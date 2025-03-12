@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button, Card, Col, FormControl, Row } from "react-bootstrap";
+import { Button, Card, Col, Form, FormControl, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import EditProtection from "./Courses/EditProtection";
@@ -105,7 +105,8 @@ export default function Dashboard({
           className="mb-2"
           onChange={(e) => setCourse({ ...course, name: e.target.value })}
         />
-        <FormControl
+        <Form.Control
+          as="textarea"
           value={course.description}
           rows={3}
           onChange={(e) =>
