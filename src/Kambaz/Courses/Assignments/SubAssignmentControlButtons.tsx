@@ -2,17 +2,21 @@
 import { IoEllipsisVertical } from "react-icons/io5";
 import GreenCheckmark from "../Modules/GreenCheckmark";
 import { FaTrash } from "react-icons/fa";
-import { deleteAssignment } from "./reducer";
-import { useDispatch } from "react-redux";
-export default function SubAssignmentControlButtons({ aid }: { aid: any }) {
-  const dispatch = useDispatch();
 
+export default function SubAssignmentControlButtons({
+  aid,
+  removeAssignment,
+}: {
+  aid: any;
+  removeAssignment: (aid: string) => void;
+}) {
   return (
     <div className="d-flex gap-2 float-end">
       <FaTrash
         className="text-danger me-2 mb-1"
         onClick={() => {
-          dispatch(deleteAssignment(aid));
+          // dispatch(deleteAssignment(aid));
+          removeAssignment(aid);
         }}
       />
       <GreenCheckmark />

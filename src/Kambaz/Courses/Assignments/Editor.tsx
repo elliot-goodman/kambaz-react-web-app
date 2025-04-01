@@ -13,6 +13,8 @@ import EditProtection from "../EditProtection";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { addAssignment, updateAssignment } from "./reducer";
+import * as coursesClient from "../client";
+import * as assignmentsClient from "./client";
 
 export default function AssignmentEditor({ cid }: { cid: any }) {
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
@@ -30,6 +32,23 @@ export default function AssignmentEditor({ cid }: { cid: any }) {
     description: "New Description",
     points: "100",
   });
+
+  const createAssignmentForCourse = async () => {
+    if (!cid) return;
+    const newAssignmentData = { assignmentData: assignment };
+    console.log("newAssignmentData", newAssignmentData);
+    const createdAssignment = await coursesClient.createAssignmentForCourse(
+      cid,
+      newAssignmentData
+    );
+    console.log("createdAssignment", createdAssignment);
+    dispatch(addAssignment(createdAssignment));
+  };
+
+  const saveAssignment = async (assignment: any) => {
+    await assignmentsClient.updateAssignment(assignment);
+    dispatch(updateAssignment(assignment));
+  };
 
   const editing = assignments.some((assignment: any) => assignment._id === aid);
 
@@ -268,9 +287,12 @@ export default function AssignmentEditor({ cid }: { cid: any }) {
             to={`/Kambaz/Courses/${cid}/Assignments`}
             onClick={() => {
               if (editing) {
-                dispatch(updateAssignment(assignment));
+                // dispatch(updateAssignment(assignment));
+                console.log("editing assignment", assignment);
+                saveAssignment(assignment);
               } else {
-                dispatch(addAssignment(assignment));
+                // dispatch(addAssignment(assignment));
+                createAssignmentForCourse();
               }
             }}
           >
