@@ -27,7 +27,7 @@ export default function AssignmentsControls({
           size="lg"
         />
       </InputGroup>
-      <EditProtection>
+      <EditProtection role="FACULTY">
         <div className="d-flex ms-auto">
           <Button
             variant="secondary"
@@ -41,7 +41,7 @@ export default function AssignmentsControls({
             />
             Group
           </Button>
-          <EditProtection>
+          <EditProtection role="FACULTY">
             <Link to={`/Kambaz/Courses/${cid}/Assignments/${aid}`}>
               <Button
                 variant="danger"
