@@ -271,7 +271,7 @@ export default function AssignmentEditor({ cid }: { cid: any }) {
         </Form.Group>
       </div>
       <hr className="wd-margin-editor-inputs wd-margin-top" />
-      <EditProtection>
+      <EditProtection role="FACULTY">
         <div className="d-flex ms-auto justify-content-end wd-margin-editor-inputs">
           <Link to={`/Kambaz/Courses/${cid}/Assignments`}>
             <Button

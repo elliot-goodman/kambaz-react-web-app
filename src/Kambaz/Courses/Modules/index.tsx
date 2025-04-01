@@ -76,7 +76,7 @@ export default function Modules() {
                   defaultValue={module.name}
                 />
               )}
-              <EditProtection>
+              <EditProtection role="FACULTY">
                 <ModuleControlButtons
                   moduleId={module._id}
                   deleteModule={(moduleId) => removeModule(moduleId)}
