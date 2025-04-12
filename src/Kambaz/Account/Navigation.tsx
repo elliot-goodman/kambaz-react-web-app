@@ -7,6 +7,7 @@ export default function AccountNavigation() {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const links = currentUser ? ["Profile"] : ["Signin", "Signup"];
   const { pathname } = useLocation();
+  const active = (path: string) => (pathname.includes(path) ? "active" : "");
   return (
     <Nav id="wd-account-navigation" className="flex-column">
       {links.map((link: string) => (
@@ -20,37 +21,16 @@ export default function AccountNavigation() {
           {link}
         </Nav.Link>
       ))}
+      {currentUser && currentUser.role === "ADMIN" && (
+        <Nav.Link
+          as={Link}
+          to={`/Kambaz/Account/Users`}
+          className={`text-black text-decoration-none fs-4 mb-2 ${active("Users")}`}
+        >
+          {" "}
+          Users{" "}
+        </Nav.Link>
+      )}
     </Nav>
   );
 }
-
-// import { Nav } from "react-bootstrap";
-// import { Link } from "react-router-dom";
-
-// export default function AccountNavigation() {
-//   return (
-//     <Nav id="wd-account-navigation" className="flex-column">
-//       <Nav.Link
-//         as={Link}
-//         to="/Kambaz/Account/Signin"
-//         className="text-black wd-border-left-black text-decoration-none fs-4 mb-2"
-//       >
-//         Signin
-//       </Nav.Link>
-//       <Nav.Link
-//         as={Link}
-//         to="/Kambaz/Account/Signup"
-//         className="text-danger text-decoration-none fs-4 mb-2"
-//       >
-//         Signup
-//       </Nav.Link>
-//       <Nav.Link
-//         as={Link}
-//         to="/Kambaz/Account/Profile"
-//         className="text-danger text-decoration-none fs-4 mb-2"
-//       >
-//         Profile
-//       </Nav.Link>
-//     </Nav>
-//   );
-// }
