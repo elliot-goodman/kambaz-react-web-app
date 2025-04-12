@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
@@ -23,8 +22,8 @@ export default function Users() {
     setUsers([...users, user]);
   };
 
-  const filterUsersByName = async (name: string) => {
-    setName(name);
+  const filterUsersByName = async (filterName: string) => {
+    setName(filterName);
     if (name) {
       const users = await client.findUsersByPartialName(name);
       setUsers(users);
