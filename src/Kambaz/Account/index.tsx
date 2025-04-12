@@ -6,7 +6,7 @@ import Signup from "./Signup";
 import AccountNavigation from "./Navigation";
 import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import Users from "./users";
+import Users from "./Users";
 
 export default function Account() {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
