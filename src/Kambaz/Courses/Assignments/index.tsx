@@ -17,8 +17,8 @@ import * as assignmentsClient from "./client";
 export default function Assignments({ cid }: { cid: any }) {
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
 
-  // Not sure if this goes here or in the reducer
   const dispatch = useDispatch();
+
   const fetchAssignments = async () => {
     const assignments = await coursesClient.findAssignmentsForCourse(
       cid as string

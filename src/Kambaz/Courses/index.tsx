@@ -7,10 +7,21 @@ import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor.tsx";
 import { FaAlignJustify } from "react-icons/fa";
 import PeopleTable from "./People/Table.tsx";
+import { findUsersForCourse } from "./client";
+import { useEffect, useState } from "react";
 
 export default function Courses({ courses }: { courses: any[] }) {
   const { cid } = useParams();
   const course = courses.find((course) => course._id === cid);
+
+  const [enrolledUsers, setEnrolledUsers] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (cid) {
+      findUsersForCourse(cid).then((users) => setEnrolledUsers(users));
+    }
+  }, [cid]);
+
   const { pathname } = useLocation();
   return (
     <div id="wd-courses">
@@ -33,7 +44,10 @@ export default function Courses({ courses }: { courses: any[] }) {
               path="Assignments/:aid"
               element={<AssignmentEditor cid={cid} />}
             />
-            <Route path="People" element={<PeopleTable />} />
+            <Route
+              path="People"
+              element={<PeopleTable users={enrolledUsers} />}
+            />
           </Routes>
         </div>
       </div>
