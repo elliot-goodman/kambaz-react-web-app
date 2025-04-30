@@ -1,26 +1,23 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { BsGripVertical } from "react-icons/bs";
-import AssignmentsControls from "./AssignmentsControls";
-import { ListGroup } from "react-bootstrap";
-import AssignmentControlButtons from "./AssignmentControlButtons";
-import SubAssignmentControlButtons from "./SubAssignmentControlButtons";
-import { RiArrowDownSFill } from "react-icons/ri";
-import { LuNotebookPen } from "react-icons/lu";
-import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import * as coursesClient from "../client";
-import { deleteAssignment, setAssignments } from "./reducer";
-import * as assignmentsClient from "./client";
+import { Button, ListGroup } from 'react-bootstrap';
+import { BsGripVertical } from 'react-icons/bs';
+import { FaPlus } from 'react-icons/fa6';
+import { IoSearch } from 'react-icons/io5';
+import AssignmentsControlButtons from './AssignmentsControlButtons';
+import AssignmentButtons from './AssignmentButtons';
+import { MdOutlineAssignment } from 'react-icons/md';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import * as assignmentsClient from './client';
+import { setAssignments } from './reducer';
+import { useEffect } from 'react';
 
-export default function Assignments({ cid }: { cid: any }) {
+export default function Assignments() {
+  const { cid } = useParams();
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { assignments } = useSelector((state: any) => state.assignmentsReducer);
-
-  // Not sure if this goes here or in the reducer
   const dispatch = useDispatch();
   const fetchAssignments = async () => {
-    const assignments = await coursesClient.findAssignmentsForCourse(
+    const assignments = await assignmentsClient.findAssignmentsForCourse(
       cid as string
     );
     dispatch(setAssignments(assignments));
@@ -28,76 +25,83 @@ export default function Assignments({ cid }: { cid: any }) {
   useEffect(() => {
     fetchAssignments();
   }, []);
-
-  const removeAssignment = async (assignmentId: string) => {
-    await assignmentsClient.deleteAssignment(assignmentId);
-    dispatch(deleteAssignment(assignmentId));
-  };
-
-  const navigate = useNavigate(); // Use useNavigate for programmatic navigation
-
   return (
-    <div id="wd-assignments">
-      <AssignmentsControls cid={cid} aid={uuidv4()} />
-      <br />
-      <br />
-      <ListGroup className="rounded-0" id="wd-modules">
-        <ListGroup.Item className="wd-assignments p-0 mb-5 fs-5 border-gray">
+    <div>
+      <div className="d-flex flex-row">
+        <div className="input-group mb-3 float-left" style={{ width: '25%' }}>
+          <span className="input-group-text" id="basic-addon1">
+            <IoSearch />
+          </span>
+          <input type="text" className="form-control" placeholder="Search..." />
+        </div>
+        {currentUser.role === 'FACULTY' && (
+          <div className="ms-auto d-flex">
+            <Button
+              variant="secondary"
+              size="lg"
+              className="ms-2 mb-3"
+              id="wd-add-group-btn"
+            >
+              <FaPlus
+                className="position-relative me-2"
+                style={{ bottom: '1px' }}
+              />
+              Group
+            </Button>
+            <Button
+              variant="danger"
+              size="lg"
+              className="ms-2 mb-3"
+              id="wd-add-assignment-btn"
+              href="#/Kambaz/Courses/RS101/Assignments/new"
+            >
+              <FaPlus
+                className="position-relative me-2"
+                style={{ bottom: '1px' }}
+              />
+              Assignment
+            </Button>
+          </div>
+        )}
+      </div>
+
+      <ListGroup className="rounded-0" id="wd-assignments">
+        <ListGroup.Item className="p-0 mb-5 fs-5 border-gray">
           <div className="wd-title p-3 ps-2 bg-secondary">
             <BsGripVertical className="me-2 fs-3" />
-            <RiArrowDownSFill className="me-2 fs-3" />
-            <b>ASSIGNMENTS</b>
-            <AssignmentControlButtons />
+            <strong>ASSIGNMENTS</strong>
+            <AssignmentsControlButtons />
           </div>
-          <ListGroup className="wd-module rounded-0">
-            {assignments
-              .filter(
-                (assignment: { course: any }) => assignment.course === cid
-              )
-              .map((assignment: any) => (
-                <div
-                  key={assignment._id}
-                  className="list-group-item wd-assignment p-3 ps-1 d-flex justify-content-between align-items-center"
-                  style={{ cursor: "pointer" }}
-                  onClick={() =>
-                    navigate(
-                      `/Kambaz/Courses/${cid}/Assignments/${assignment._id}`
-                    )
-                  }
+
+          <ListGroup className="rounded-0">
+            {assignments.map((assignment: any) => (
+              <div className="d-flex flex-row justify-content-between wd-assignment border">
+                <a
+                  href={`#/Kambaz/Courses/${cid}/Assignments/${assignment._id}`}
+                  style={{ textDecoration: 'none' }}
+                  className="flex-grow-1 w-100"
                 >
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div className="d-flex mr-3">
-                      <BsGripVertical className="me-2 fs-3" />
-                      <LuNotebookPen
-                        className="me-2 fs-3"
-                        style={{ color: "green" }}
-                      />
-                    </div>
-                    <div>
-                      <div className="wd-text-bold">{assignment.title}</div>
-                      <div className="wd-text-small">
-                        <span className="wd-text-red">Multiple Modules</span> |{" "}
-                        <span className="wd-text-bold">
-                          Not Available Until
-                        </span>{" "}
-                        {assignment.start} |{" "}
-                        <span className="wd-text-bold">Due</span>{" "}
-                        {assignment.due}
+                  <ListGroup.Item className="border-0 p-3 ps-1 d-flex flex-row align-items-center flex-grow-1">
+                    <BsGripVertical className="me-2 fs-3" />
+                    <MdOutlineAssignment color="green" className="fs-3 me-3" />
+                    <div className="d-flex flex-column">
+                      <strong>{assignment.title}</strong>
+                      <div className="fs-6">
+                        <strong className="text-danger">
+                          Multiple Modules
+                        </strong>{' '}
+                        | <strong>Not available until</strong>{' '}
+                        {assignment.available_at} | <strong>Due</strong>{' '}
+                        {assignment.due_date} | {assignment.points} pts
                       </div>
                     </div>
-                  </div>
-                  <div onClick={(e) => e.stopPropagation()}>
-                    {" "}
-                    <SubAssignmentControlButtons
-                      aid={assignment._id}
-                      // removeAssignment={(assignment._id) => removeAssignment(assignment._id)}
-                      removeAssignment={(assignmentId) =>
-                        removeAssignment(assignmentId)
-                      }
-                    />
-                  </div>
+                  </ListGroup.Item>
+                </a>
+                <div className="d-flex col-auto align-items-center">
+                  <AssignmentButtons assignmentId={assignment._id} />
                 </div>
-              ))}
+              </div>
+            ))}
           </ListGroup>
         </ListGroup.Item>
       </ListGroup>

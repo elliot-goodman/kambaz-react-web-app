@@ -1,8 +1,10 @@
-import { FaBan, FaCircle, FaPlus } from "react-icons/fa6";
-import GreenCheckmark from "./GreenCheckmark";
-import { Button, Dropdown } from "react-bootstrap";
-import { useState } from "react";
-import ModuleEditor from "./ModuleEditor";
+import { FaPlus } from 'react-icons/fa6';
+import GreenCheckmark from './GreenCheckmark';
+import { Button, Dropdown } from 'react-bootstrap';
+import GrayBlocked from './GrayBlocked';
+import ModuleEditor from './ModuleEditor';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 export default function ModulesControls({
   moduleName,
   setModuleName,
@@ -12,21 +14,27 @@ export default function ModulesControls({
   setModuleName: (title: string) => void;
   addModule: () => void;
 }) {
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
     <div id="wd-modules-controls" className="text-nowrap">
-      <Button
-        variant="danger"
-        onClick={handleShow}
-        size="lg"
-        className="me-1 float-end"
-        id="wd-add-module-btn"
-      >
-        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
-        Module
-      </Button>
+      {currentUser.role === 'FACULTY' && (
+        <Button
+          variant="danger"
+          size="lg"
+          className="me-1 float-end"
+          id="wd-add-module-btn"
+          onClick={handleShow}
+        >
+          <FaPlus
+            className="position-relative me-2"
+            style={{ bottom: '1px' }}
+          />
+          Module
+        </Button>
+      )}
       <Dropdown className="float-end me-2">
         <Dropdown.Toggle variant="secondary" size="lg" id="wd-publish-all-btn">
           <GreenCheckmark /> Publish All
@@ -42,40 +50,26 @@ export default function ModulesControls({
             <GreenCheckmark /> Publish modules only
           </Dropdown.Item>
           <Dropdown.Item id="wd-unpublish-all-modules-and-items">
-            <span className="me-1 position-relative">
-              <FaBan
-                style={{ top: "2px" }}
-                className="me-1 position-absolute fs-5"
-              />
-              <FaCircle className="text-white me-1 fs-6" />
-            </span>
-            Unpublish all modules and items
+            <GrayBlocked /> Unpublish all modules and items
           </Dropdown.Item>
           <Dropdown.Item id="wd-unpublish-modules-only">
-            <span className="me-1 position-relative">
-              <FaBan
-                style={{ top: "2px" }}
-                className="me-1 position-absolute fs-5"
-              />
-              <FaCircle className="text-white me-1 fs-6" />
-            </span>
-            Unpublish modules only
+            <GrayBlocked /> Unpublish modules only
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
       <Button
+        id="wd-view-progress"
         variant="secondary"
         size="lg"
         className="me-1 float-end"
-        id="wd-view-progress"
       >
         View Progress
       </Button>
       <Button
+        id="wd-collapse-all"
         variant="secondary"
         size="lg"
         className="me-1 float-end"
-        id="wd-collapse-all"
       >
         Collapse All
       </Button>

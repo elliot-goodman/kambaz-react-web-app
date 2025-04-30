@@ -1,16 +1,15 @@
-body   {  margin: 0;  padding: 0;  }
-body * {  font-family: Arial, Helvetica, sans-serif;  }
+body {
+  margin: 0;
+  padding: 0;
+}
+body * {
+  font-family: Arial, Helvetica, sans-serif;
+}
 
 @media (min-width: 768px) {
   #wd-kambaz .wd-main-content-offset {
     padding-left: 140px !important;
   }
-}
-
-.list-group.wd > .list-group-item.active {
-  color: black;
-  background-color: white;
-  border-left: 3px solid black !important;
 }
 
 .btn-secondary {
@@ -31,46 +30,16 @@ body * {  font-family: Arial, Helvetica, sans-serif;  }
 .wd-assignment {
   border-left: 3px solid green !important;
 }
-.wd-icon-green {
-  color: green;
-}
 
-.wd-text-red {
-  color: red;
-}
-.wd-text-bold {
-  font-weight: bold;
-}
-.wd-text-small {
-  font-size: 0.8em;
-}
-
-.wd-margin-top {
-  margin-top: 40px;
-}
-.wd-margin-top-small {
-  margin-top: 20px;
-}
-.wd-margin-top-tiny {
-  margin-top: 9px;
-}
-.wd-margin-editor-inputs {
-  margin-right: 200px;
-  margin-left: 10px;
-}
-.wd-margin-label {
-  margin-right: 10px;
-}
-.wd-margin-right-small {
-  margin-right: 30px;
-}
-
-
-.wd-rounded-corners {
-  border-radius: 5px;
-}
-
-.wd-border-left-black {
+.list-group.wd > .list-group-item.active {
+  color: black;
+  background-color: white;
   border-left: 3px solid black !important;
 }
 
+.wd-dashboard-course {
+  margin-left: 15px;
+  margin-right: 15px;
+  padding-left: 0px;
+  padding-right: 0px;
+}

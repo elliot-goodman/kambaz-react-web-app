@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { setCurrentUser } from "./reducer";
-import { useDispatch } from "react-redux";
-import { Button, FormControl } from "react-bootstrap";
-import * as client from "./client";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { setCurrentUser } from './reducer';
+import { useDispatch } from 'react-redux';
+import { FormControl, Button } from 'react-bootstrap';
+import * as client from './client';
 
 export default function Signin() {
   const [credentials, setCredentials] = useState<any>({});
@@ -14,8 +13,9 @@ export default function Signin() {
     const user = await client.signin(credentials);
     if (!user) return;
     dispatch(setCurrentUser(user));
-    navigate("/Kambaz/Dashboard");
+    navigate('/Kambaz/Dashboard');
   };
+
   return (
     <div id="wd-signin-screen">
       <h1>Sign in</h1>
@@ -39,12 +39,12 @@ export default function Signin() {
         id="wd-password"
       />
       <Button onClick={signin} id="wd-signin-btn" className="w-100">
-        {" "}
-        Sign in{" "}
+        {' '}
+        Sign in{' '}
       </Button>
       <Link id="wd-signup-link" to="/Kambaz/Account/Signup">
-        {" "}
-        Sign up{" "}
+        {' '}
+        Sign up{' '}
       </Link>
     </div>
   );
