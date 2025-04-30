@@ -5,7 +5,7 @@ This repo provides the frontend for the Kambaz website. Kambaz is a recreation o
 # Usage
 
 The frontend is hosted remotely using Netlify, and can be accessed here:
-https://final--kambaz-react-web-app-elliot-goodman.netlify.app/#/Kambaz/Account/Signup
+https://project--fluffy-conkies-c66069.netlify.app/#/Kambaz
 
 # Backend
 
